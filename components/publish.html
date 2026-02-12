@@ -1,0 +1,78 @@
+<button class="close-btn" onclick="closePublishModal()">← CLOSE</button>
+<div class="detail-container" id="publish-modal-content">
+    <div class="publish-header-bar">
+        <div style="display: flex; align-items: baseline; gap: 10px;">
+            <h2 style="margin:0; letter-spacing: 1px;">NEW POST</h2>
+            <span id="publish-status" style="font-size:0.75rem; color:var(--accent); opacity: 0.8;">就绪</span>
+        </div>
+        <button type="button" onclick="openSettingsModal()" style="background:none; border:none; color:var(--text-soft); cursor:pointer; font-size:0.8rem; display: flex; align-items: center; gap: 4px;">
+            ⚙ SETTINGS
+        </button>
+    </div>
+    
+    <form id="publish-form" autocomplete="off" style="display: flex; flex-direction: column; flex: 1; overflow: hidden;">
+        <div class="publish-top-grid">
+            <div class="form-group">
+                <label>[Title]</label>
+                <input type="text" id="publish-title" class="publish-input" placeholder="文章标题..." required>
+            </div>
+            <div class="form-group">
+                <label>[Label]</label>
+                <input type="text" id="publish-labels" class="publish-input" placeholder="Tech, Life...">
+            </div>
+        </div>
+
+        <div class="publish-main-content">
+            <div class="editor-side">
+                <label>[Content]</label>
+                <textarea id="publish-body" placeholder="在此输入 Markdown 内容或粘贴图片..." required></textarea>
+            </div>
+            <div class="preview-side">
+                <label>Live Preview</label>
+                <div id="md-preview" class="markdown-body"></div>
+            </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 20px;">
+            <label>[References]</label>
+            <textarea id="publish-reference" class="publish-input" style="height:60px; min-height: 60px; resize: vertical;" placeholder="在此输入引用链接..."></textarea>
+        </div>
+
+        <div class="publish-bottom-grid">
+            <div class="form-group">
+                <label>[Cover]</label>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <input type="text" id="publish-cover" class="publish-input" placeholder="图片 URL">
+                    <input type="file" id="publish-cover-upload" accept="image/*" style="display:none">
+                    <button type="button" onclick="document.getElementById('publish-cover-upload').click()" class="publish-input" style="width:auto; cursor:pointer; background: var(--line); border:none; white-space: nowrap;">UPLOAD</button>
+                    <img id="publish-cover-preview" alt="Preview">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>[Summary]</label>
+                <input type="text" id="publish-summary" class="publish-input" placeholder="简短摘要...">
+            </div>
+            <div class="form-group">
+                <button type="submit" id="submit-btn" class="publish-btn" disabled>请先配置 Key</button>
+            </div>
+        </div>
+    </form>
+    <div id="publish-progress" style="margin-top:10px; font-size:0.85rem; color:var(--accent); font-weight: bold; display:none;"></div>
+</div>
+
+<div id="settings-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:1100; align-items:center; justify-content:center;">
+    <div class="settings-container" style="background:var(--bg); padding:30px; border-radius:20px; width:90%; max-width:400px; box-shadow:var(--shadow); border: 1px solid var(--line);">
+        <h3 style="margin-top:0; color:var(--accent); letter-spacing: 1px;">发布设置</h3>
+        <div class="form-group" style="margin-bottom: 20px;">
+            <label style="display: block; font-size: 0.75rem; font-weight: 800; margin-bottom: 8px; color: var(--accent); text-transform: uppercase;">GitHub Personal Access Token</label>
+            <input type="password" id="settings-key-input" class="publish-input" placeholder="ghp_xxxxxxxxxxxx" style="width: 100%; box-sizing: border-box;">
+            <p style="font-size:0.7rem; color:var(--text-soft); margin-top:8px; line-height: 1.4;">
+                此 Key 仅保存在您当前浏览器的本地存储 (LocalStorage) 中，用于调用 GitHub API 发布文章和上传图片。
+            </p>
+        </div>
+        <div style="display:flex; gap:10px;">
+            <button type="button" onclick="saveSettings()" class="publish-btn" style="flex:1;">SAVE</button>
+            <button type="button" onclick="closeSettingsModal()" class="publish-btn" style="flex:1; background:var(--line); color:var(--text);">CANCEL</button>
+        </div>
+    </div>
+</div>
